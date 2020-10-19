@@ -1,0 +1,26 @@
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Please click to see the secret"
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": true,
+						"text": "Read Secret"
+					},
+					"style": "primary",
+					"value": "secretsharing_"
+				}
+			]
+		}
+	]
+}
