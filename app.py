@@ -10,7 +10,7 @@ from slack import WebClient
 from cryptography.fernet import Fernet
 
 from interactive_actions import route
-from utils.secrets import gen_one_time_url
+from utils.secrets import storesecret
 from utils import validators
 from utils.parsers import parse_text
 from config import SLACK_SIGNING_SECRET, \
@@ -30,9 +30,9 @@ def slack_sharesecret():
     parsed_msg = parse_text(request.form['text'])
     to_user = parsed_msg[0]
     msg = parsed_msg[1]    
-    one_time_url = gen_one_time_url(msg)
+    secret_uuid = storesecret(msg)
     blocks = json.loads(open('templates/open_modal.json').read())
-    blocks['blocks'][1]['elements'][0]['value'] += one_time_url
+    blocks['blocks'][1]['elements'][0]['value'] += secret_uuid
     slack_client.chat_postMessage(channel=to_user, blocks=blocks['blocks'])        
     return make_response("",200)
 

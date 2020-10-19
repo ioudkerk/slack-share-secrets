@@ -17,7 +17,7 @@ def getsecret(uuid):
     except:
         return "No secrets to read"
 
-def gen_one_time_url(text):
+def storesecret(text):
     r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
     passwd_uuid = str(uuid.uuid4())
     f = Fernet(ENCRYPT_KEY)
