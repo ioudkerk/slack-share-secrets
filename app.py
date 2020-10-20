@@ -28,10 +28,12 @@ slack_events_adapter = SlackEventAdapter(SLACK_SIGNING_SECRET, "/slack/events", 
 def slack_sharesecret():
     validators.verify(request, B_SLACK_SIGNING_SECRET)    
     parsed_msg = parse_text(request.form['text'])
+    from_user = request.form['user_id']
     to_user = parsed_msg[0]
-    msg = parsed_msg[1]    
+    msg = parsed_msg[1].replace('\\n','\n')
     secret_uuid = storesecret(msg)
     blocks = json.loads(open('templates/open_modal.json').read())
+    blocks['blocks'][0]['text']['text'] = f"<@{from_user}> is sending a secret to you"
     blocks['blocks'][1]['elements'][0]['value'] += secret_uuid
     slack_client.chat_postMessage(channel=to_user, blocks=blocks['blocks'])        
     return make_response("",200)

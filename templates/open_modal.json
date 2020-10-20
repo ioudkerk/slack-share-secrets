@@ -4,7 +4,7 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Please click to see the secret"
+				"text": ""
 			}
 		},
 		{
@@ -15,7 +15,7 @@
 					"text": {
 						"type": "plain_text",
 						"emoji": true,
-						"text": "Read Secret"
+						"text": "Click to view the Secret"
 					},
 					"style": "primary",
 					"value": "secretsharing_"
