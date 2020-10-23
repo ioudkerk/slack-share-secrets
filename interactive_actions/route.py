@@ -3,7 +3,7 @@ from slack import WebClient
 from config import SLACK_BOT_TOKEN
 from flask import make_response
 
-from utils.secrets import getsecret
+from utils.secrets import getsecret, destroysecret
 
 slack_client = WebClient(SLACK_BOT_TOKEN)
 
@@ -19,5 +19,12 @@ def block_actions(payload):
         secret_uuid = actions[0]['value'].split('_')[1]
         modal = json.loads(open('templates/share_secret.json').read())
         modal['blocks'][2]['text']['text'] = getsecret(secret_uuid)
+        modal.update({'callback_id':secret_uuid})
         slack_client.views_open(trigger_id=trigger_id,view=modal)
         return make_response("", 200)
+
+def view_submission(payload):
+    view = payload['view']
+    secret_uuid = view['callback_id']
+    destroysecret(secret_uuid)
+    return make_response("",200)

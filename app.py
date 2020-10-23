@@ -44,6 +44,8 @@ def slack_interactive():
     payload = json.loads(request.form['payload'])    
     if payload['type'] == 'block_actions':
         return route.block_actions(payload)
+    if payload['type'] == 'view_submission':        
+        return route.view_submission(payload)
     return make_response("",200)
 
 @slack_events_adapter.on("error")

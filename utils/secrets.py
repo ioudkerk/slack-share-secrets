@@ -11,11 +11,19 @@ def getsecret(uuid):
         r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)        
         f = Fernet(ENCRYPT_KEY)
         key_encoded = r.get(uuid)
-        r.delete(uuid)
+        # r.delete(uuid)
         token = f.decrypt(key_encoded)
         return token.decode('utf-8')
     except:
         return "No secrets to read"
+
+def destroysecret(uuid):
+    try:
+        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)                        
+        r.delete(uuid)        
+        return True
+    except:
+        return False
 
 def storesecret(text):
     r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
