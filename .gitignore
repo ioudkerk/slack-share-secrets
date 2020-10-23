@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .env
+
+launch.json
+settings.json
