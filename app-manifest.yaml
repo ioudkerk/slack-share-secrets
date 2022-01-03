@@ -1,0 +1,28 @@
+_metadata:
+  major_version: 1
+  minor_version: 1
+display_information:
+  name: share-secrets
+features:
+  bot_user:
+    display_name: share-secrets
+    always_online: false
+  slash_commands:
+    - command: /share-secret
+      url: https://public-fqdn-for-the-app/slack/sharesecret
+      description: App to share secrets
+      usage_hint: "@towho <to share>"
+      should_escape: true
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - chat:write
+settings:
+  interactivity:
+    is_enabled: true
+    request_url: https://public-fqdn-for-the-app/slack/interactive
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+
