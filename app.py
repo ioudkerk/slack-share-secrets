@@ -49,7 +49,7 @@ def slack_interactive():
     return make_response("",200)
 
 @app.route("/live")
-def slack_interactive():
+def live():
     return make_response("",200)
 
 @slack_events_adapter.on("error")
