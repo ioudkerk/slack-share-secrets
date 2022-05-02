@@ -48,6 +48,10 @@ def slack_interactive():
         return route.view_submission(payload)
     return make_response("",200)
 
+@app.route("/live")
+def slack_interactive():
+    return make_response("",200)
+
 @slack_events_adapter.on("error")
 def error_handler(err):
     print("ERROR: " + str(err))
