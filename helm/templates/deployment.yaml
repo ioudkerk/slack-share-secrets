@@ -33,22 +33,23 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            {{- range $name, $value := .Values.env }}
-            - name: {{ $name }}
-              value: {{ $value }}
-            {{- end }}
+          env:          
+          {{- range $key, $value := .Values.env }}
+            - name: {{ $key | quote }}
+              {{ if not (kindIs "map" $value) }}value: {{ $value | quote }}{{ else }}
+              {{- toYaml $value | nindent 14 | trim -}}{{- end -}}
+          {{- end }}
           ports:
             - name: http
               containerPort: 5000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /live
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /live
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
