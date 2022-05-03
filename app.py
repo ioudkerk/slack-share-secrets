@@ -36,7 +36,7 @@ def slack_sharesecret():
     blocks['blocks'][0]['text']['text'] = f"<@{from_user}> is sending a secret to you"
     blocks['blocks'][1]['elements'][0]['value'] += secret_uuid
     slack_client.chat_postMessage(channel=to_user, blocks=blocks['blocks'])        
-    return make_response("Secret Sended",200)
+    return make_response("Secret sent",200)
 
 @app.route("/slack/interactive", methods= ["POST"])
 def slack_interactive():
